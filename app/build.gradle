@@ -1,0 +1,106 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.frogermcs.androiddevmetrics'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.jakewharton.hugo'
+
+apt {
+  arguments {
+    logLevel 'TRACE'
+    logAppenderConsole true
+
+    androidManifestFile variant.outputs[0]?.processResources?.manifestFile
+    resourcePackageName 'com.android.sample.nzbuses'
+
+    // If you're using Android NBS flavors you should use the following line instead of hard-coded packageName
+    // resourcePackageName android.defaultConfig.packageName
+
+    // You can set optional annotation processing options here, like these commented options:
+    // logLevel 'INFO'
+    // logFile '/var/logg/aa.log'
+  }
+}
+
+android {
+  compileSdkVersion 24
+  buildToolsVersion '25.0.2'
+  defaultConfig {
+    applicationId "com.android.sample.nzbuses"
+    minSdkVersion 14
+    targetSdkVersion 24
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+    internal {
+      minifyEnabled true
+      debuggable false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      applicationIdSuffix '.int'
+    }
+    debug {
+      signingConfig signingConfigs.debug
+      applicationIdSuffix '.debug'
+    }
+  }
+  packagingOptions {
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/NOTICE.txt'
+  }
+}
+ext.androidAnnotationsVersion = '4.1.0';
+
+
+dependencies {
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
+  // android
+
+  compile 'com.android.support:design:24.2.1'
+  compile 'com.android.support:appcompat-v7:24.2.1'
+  apt "org.androidannotations:androidannotations:${androidAnnotationsVersion}"
+  compile "org.androidannotations:androidannotations-api:${androidAnnotationsVersion}"
+
+  // java
+  compile 'javax.annotation:javax.annotation-api:1.2'
+  compile 'javax.inject:javax.inject:1'
+  testCompile 'junit:junit:4.12'
+
+  //google
+  compile 'com.google.dagger:dagger:2.4'
+  apt 'com.google.dagger:dagger-compiler:2.4'
+  compile 'com.google.code.gson:gson:2.7'
+
+  // squareup
+  compile 'com.squareup.retrofit2:retrofit:2.0.2'
+  compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+  compile 'com.squareup.picasso:picasso:2.5.2'
+
+  // eventbus
+  compile 'org.greenrobot:eventbus:3.0.0'
+
+  // database
+  compile 'com.j256.ormlite:ormlite-android:4.46'
+
+  // utils
+  compile 'com.github.johnkil.android-robototextview:robototextview:2.5.1'
+  compile 'com.pnikosis:materialish-progress:1.7'
+  compile 'com.facebook.stetho:stetho:1.4.2'
+  compile 'com.facebook.stetho:stetho-okhttp3:1.4.2'
+  compile 'com.afollestad.material-dialogs:commons:0.9.4.1'
+
+  //test
+  testCompile 'org.mockito:mockito-core:1.10.9'
+  testCompile "org.assertj:assertj-core:1.7.0"
+  testCompile("org.robolectric:shadows-multidex:3.0") {
+    exclude group: 'commons-logging', module: 'commons-logging'
+    exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+  }
+}

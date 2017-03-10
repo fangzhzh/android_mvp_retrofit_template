@@ -1,0 +1,6 @@
+<resources>
+  <string name="app_name">Sample</string>
+  <string name="ct_loading">Loading....</string>
+  <string name="adm_name">AndroidDevMetrics</string>
+  <string name="ct_bad_network">Network problem</string>
+</resources>

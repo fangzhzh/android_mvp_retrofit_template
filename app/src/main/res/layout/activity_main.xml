@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+      <com.fangzhzh.android.nzbuses.ui.weatherview.DynamicWeatherView
+          android:id="@+id/dynamic_weather_view"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          />
+
+      <com.android.sample.nzbuses.ui.weather.WeatherOverviewView_
+          android:id="@+id/weather_overview"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          />
+      <ImageButton
+          android:id="@+id/settings"
+          android:paddingTop="4dp"
+          android:paddingRight="4dp"
+          android:paddingEnd="4dp"
+          android:background="?android:selectableItemBackground"
+          android:src="@drawable/ic_settings_black"
+          android:layout_gravity="right|top"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          />
+
+    </FrameLayout>
+</LinearLayout>
